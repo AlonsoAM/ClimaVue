@@ -3,10 +3,13 @@ import { computed, ref } from "vue";
 
 export default function useClima() {
   const clima = ref({});
+  const cargand = ref(false);
 
   const obtenerClima = async ({ ciudad, pais }) => {
     // Importar el API KEY
     const key = import.meta.env.VITE_API_KEY;
+    cargand.value = true;
+    clima.value = {};
 
     try {
       // Obtener la latitud y longitud
@@ -22,8 +25,12 @@ export default function useClima() {
       clima.value = resp;
     } catch (error) {
       console.log(error);
+    } finally {
+      cargand.value = false;
     }
   };
+
+  const formatearTemperatura = (temperatura) => parseInt(temperatura - 273.15);
 
   const mostrarClima = computed(() => {
     return Object.values(clima.value).length > 0;
@@ -33,5 +40,7 @@ export default function useClima() {
     obtenerClima,
     clima,
     mostrarClima,
+    formatearTemperatura,
+    cargand,
   };
 }
