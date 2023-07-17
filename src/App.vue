@@ -1,5 +1,12 @@
-<script setup></script>
+<script setup>
+import Formulario from "./components/Formulario.vue";
+</script>
 
-<template></template>
+<template>
+  <h1 class="titulo">Buscador de Clima</h1>
+  <div class="contenedor buscador-clima">
+    <Formulario />
+  </div>
+</template>
 
 <style scoped></style>
