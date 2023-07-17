@@ -28,7 +28,7 @@ const consultarClima = () => {
   error.value = "";
 
   // Si pasa la validación, consultar el clima
-  emit("obtener-clima");
+  emit("obtener-clima", busqueda);
 };
 </script>
 <template>
