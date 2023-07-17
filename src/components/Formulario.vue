@@ -8,6 +8,8 @@ const busqueda = reactive({
 });
 const error = ref("");
 
+const emit = defineEmits(["obtener-clima"]);
+
 const paises = [
   { codigo: "US", nombre: "Estados Unidos" },
   { codigo: "MX", nombre: "México" },
@@ -19,8 +21,14 @@ const paises = [
 ];
 
 const consultarClima = () => {
-  Object.values(busqueda).includes("") &&
-    (error.value = "Todos los campos son obligatorios");
+  if (Object.values(busqueda).includes("")) {
+    error.value = "Todos los campos son obligatorios";
+    return;
+  }
+  error.value = "";
+
+  // Si pasa la validación, consultar el clima
+  emit("obtener-clima");
 };
 </script>
 <template>
