@@ -4,12 +4,14 @@ import { computed, ref } from "vue";
 export default function useClima() {
   const clima = ref({});
   const cargand = ref(false);
+  const error = ref("");
 
   const obtenerClima = async ({ ciudad, pais }) => {
     // Importar el API KEY
     const key = import.meta.env.VITE_API_KEY;
     cargand.value = true;
     clima.value = {};
+    error.value = "";
 
     try {
       // Obtener la latitud y longitud
@@ -23,8 +25,8 @@ export default function useClima() {
       const { data: resp } = await axios.get(url2);
 
       clima.value = resp;
-    } catch (error) {
-      console.log(error);
+    } catch {
+      error.value = "Ciudad no encontrada";
     } finally {
       cargand.value = false;
     }
@@ -42,5 +44,6 @@ export default function useClima() {
     mostrarClima,
     formatearTemperatura,
     cargand,
+    error,
   };
 }

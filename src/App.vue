@@ -3,7 +3,8 @@ import Clima from "./components/Clima.vue";
 import Formulario from "./components/Formulario.vue";
 import useClima from "./composables/useClima";
 import Loader from "./components/Loader.vue";
-const { obtenerClima, clima, mostrarClima, cargand } = useClima();
+import Alerta from "./components/Alerta.vue";
+const { obtenerClima, clima, mostrarClima, cargand, error } = useClima();
 </script>
 
 <template>
@@ -11,6 +12,7 @@ const { obtenerClima, clima, mostrarClima, cargand } = useClima();
   <div class="contenedor buscador-clima">
     <Formulario @obtener-clima="obtenerClima" />
     <Loader v-if="cargand" />
+    <Alerta v-if="error">{{ error }}</Alerta>
     <Clima v-if="mostrarClima" :clima="clima" />
   </div>
 </template>
